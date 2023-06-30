@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Weather App</title>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
+
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM"
+      crossorigin="anonymous"
+    />
+
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+
+  <body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="/">Weather App <i class="fas fa-cloud"></i> </a>
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarSupportedContent"
+          aria-controls="navbarSupportedContent"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav me-auto mb-2 mb-lg-0 ">
+            <li class="nav-item">
+              <a class="nav-link active" aria-current="page" href="#">Home</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link active" href="#">About this App</a>
+            </li>
+            
+          </ul>
+
+          <div class="dark-mode-toggle mx-4">
+            <input type="checkbox" id="darkModeToggle" class="visually-hidden"  />
+            <label for="darkModeToggle" class="dark-mode-icon">
+              <i class="fas fa-moon"></i>
+              
+            </label>
+          </div>
+        </div>
+      </div>
+    </nav>
+
+    <div class="container">
+      <div class="container my-4 text-center">
+        <i class="fas fa-cloud fa-3x " ></i>
+        <i class="fas fa-temperature-high fa-3x ms-3"></i>
+        <i class="fas fa-sun fa-3x ms-3"></i>
+        <i class="fas fa-wind fa-3x ms-3"></i>
+      </div>
+      <div class="container mt-4">
+          <form class="d-flex" onsubmit="event.preventDefault(); searchCity();">
+            
+            
+            <input 
+            id="city"
+            class="form-control me-2"
+            type="search"
+            placeholder="Enter a new city"
+            aria-label="Search"
+            />
+            
+            <button class="btn btn-primary" type="submit" id="submit">
+              Search
+            </button>
+          </form>
+        </div>
+
+      <div class="container">
+        <main>
+          <div id="weather-card-container" style="display: none">
+            <h1 class="my-4 text-center"><span id="cityName"></span>'s Weather</h1>
+            <div class="row row-cols-1 row-cols-md-4 mb-3 text-center">
+              <div class="col mx-auto">
+                <div class="card mb-4 rounded-5 shadow-sm ">
+                  <div class="card-header rounded-top-5 py-3 bg-primary">
+                    <h4 class="my-0 fw-normal">
+                      <i class="fas fa-temperature-high"></i>
+                      
+                    
+                    </h4>
+                  </div>
+                  <div class="card-body">
+                    <h1 class="card-title pricing-card-title">
+                      <i id="weather-icon" class="fas"></i>
+                      <span id="temp2"></span>°C<small class="text-body-secondary fw-light"></small>
+                    </h1>
+                    <ul class="list-unstyled mt-3 mb-4">
+                      <li>Temperature is <span id="temp"></span>°C</li>
+                      <li>Minimum Temperature <span id="min_temp"></span>°C</li>
+                      <li>Maximum Temperature is <span id="max_temp"></span>°C</li>
+                      
+                      
+                      
+                    </ul>
+                  </div>
+                </div>
+              </div>
+              
+                
+              <div class="col mx-auto">
+                <div class="card mb-4 rounded-5 shadow-sm">
+                  <div class="card-header rounded-top-5 py-3 bg-primary">
+                    <h4 class="my-0 fw-normal">
+                      <i class="fas fa-cloud-rain"></i>
+                      <i class="fa-duotone fa-droplet-percent"></i>
+                                        </h4>
+                  </div>
+                  <div class="card-body">
+                    <h1 class="card-title pricing-card-title">
+                      <i id="weather-icon" class="fas"></i>
+                      <span id="cloud_pct2"></span>%<small class="text-body-secondary fw-light"></small>
+                    </h1>
+                    <ul class="list-unstyled mt-3 mb-4">
+
+                      <li>Cloud PCT is <span id="cloud_pct"></span>%</li>
+                      
+                      <li>Humidity <span id="humidity"></span>%</li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+              <div class="col mx-auto">
+                <div class="card mb-4 rounded-5 shadow-sm">
+                  <div class="card-header rounded-top-5 py-3 bg-primary">
+                    <h4 class="my-0 fw-normal">
+                      
+                      <i class="fas fa-wind"></i>
+                      
+                    </h4>
+                  </div>
+                  <div class="card-body">
+                    <h1 class="card-title pricing-card-title">
+                      <i id="weather-icon" class="fas"></i>
+                      <span id="wind_speed2"></span> m/s<small class="text-body-secondary fw-light"></small>
+                    </h1>
+                    <ul class="list-unstyled mt-3 mb-4">
+                    <li>Wind Speed is <span id="wind_speed"></span> m/s</li>
+                    <li>Wind Degree <span id="wind_degrees"></span>°</li>
+                    
+                    </ul>
+                  </div>
+                </div>
+              </div>
+
+              <div class="col mx-auto">
+                <div class="card mb-4 rounded-5 shadow-sm">
+                  <div class="card-header rounded-top-5 py-3 bg-primary">
+                    <h4 class="my-0 fw-normal">
+                      <i class="fas fa-sun"></i>
+                      
+                                        </h4>
+                  </div>
+                  <div class="card-body">
+                    <h1 class="card-title pricing-card-title">
+                      <i id="weather-icon" class="fas"></i>
+                      <span id="temp3"></span>°C<small class="text-body-secondary fw-light"></small>
+                    </h1>
+                    <ul class="list-unstyled mt-3 mb-4">
+                      <li>Feels Like <span id="feels_like"></span>°C</li>
+                    <li>Sunrise Time <span id="sunrise"></span> IST</li>
+                    <li>Sunset Time <span id="sunset"></span> IST</li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+          <h2 class="display-6 text-center mb-4">Major Cities<span hidden id="cityName"></span></h2>
+
+          <div class="table-responsive">
+            <table class="table text-center">
+              <thead>
+                <tr>
+                  <th style="width: 10%"></th>
+                  <th style="width: 10%">Temp</th>
+                  <th style="width: 10%">Min_temp</th>
+                  <th style="width: 10%">Max_temp</th>
+                  <th style="width: 10%">Feels_like</th>
+                  <th style="width: 10%">Humidity</th>
+                  <th style="width: 10%">Cloud_pct</th>
+                  <th style="width: 10%">Sunrise</th>
+                  <th style="width: 10%">Sunset</th>
+                  <th style="width: 10%">Wind_degrees</th>
+                  <th style="width: 10%">Wind_speed</th>
+                </tr>
+              </thead>
+              
+
+            <tbody>
+              <tr id="Delhi">
+                <th scope="row" class="text-start">Delhi</th>
+              </tr>
+              <tr id="Bangalore">
+                <th scope="row" class="text-start">Bangalore</th>
+              </tr>
+              <tr id="Pune">
+                <th scope="row" class="text-start">Pune</th>
+              </tr>
+              <tr id="Mumbai">
+                <th scope="row" class="text-start">Mumbai</th>
+              </tr>
+              <tr id="Jaipur">
+                <th scope="row" class="text-start">Jaipur</th>
+              </tr>
+              <tr id="Chennai">
+                <th scope="row" class="text-start">Chennai</th>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </main>
+    </div>
+
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz"
+      crossorigin="anonymous"
+    ></script>
+    <script src="script.js"></script>
+  </body>
+</html>
