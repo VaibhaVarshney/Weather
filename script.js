@@ -6,41 +6,60 @@ const options = {
   },
 };
 
+
+const updateTheme = (temperature) => {
+    const body = document.body;
+  
+    if (temperature >= 28) {
+      body.style.backgroundImage = "url('summer.jpg')";
+    } else if (temperature < 10) {
+      body.style.backgroundImage = "url('winter.jpg')";
+    } else {
+      body.style.backgroundImage = "url('spring.jpg')";
+    }
+  };
+
+
 const getWeather = (city) => {
     const capitalizedCity = city.replace(/\b\w/g, function(match) {
         return match.toUpperCase();
       });
       cityName.innerHTML = capitalizedCity;
-  document.getElementById('weather-card-container').style.display = 'block';
-  fetch("https://weather-by-api-ninjas.p.rapidapi.com/v1/weather?city=" + city, options)
-    .then((response) => {
-      if (!response.ok) {
-        throw new Error("Unable to fetch weather data. Please try again.");
-      }
-      return response.json();
-    })
-    .then((response) => {
-      console.log(response);
-      cloud_pct.innerHTML = response.cloud_pct;
-      cloud_pct2.innerHTML = response.cloud_pct;
-      temp.innerHTML = response.temp;
-      temp2.innerHTML = response.temp;
-      temp3.innerHTML = response.temp;
-      feels_like.innerHTML = response.feels_like;
-      humidity.innerHTML = response.humidity;
-      min_temp.innerHTML = response.min_temp;
-      max_temp.innerHTML = response.max_temp;
-      wind_speed.innerHTML = response.wind_speed;
-      wind_speed2.innerHTML = response.wind_speed;
-      wind_degrees.innerHTML = response.wind_degrees;
-      sunrise.innerHTML = formatTime(response.sunrise);
-      sunset.innerHTML = formatTime(response.sunset);
-    })
-    .catch((err) => {
-      console.error(err);
-      alert("An error occurred while fetching weather data. Please try again.");
-    });
-};
+      cityName.innerHTML = capitalizedCity;
+      document.getElementById('weather-card-container').style.display = 'block';
+      fetch("https://weather-by-api-ninjas.p.rapidapi.com/v1/weather?city=" + city, options)
+        .then((response) => {
+          if (!response.ok) {
+            throw new Error("Unable to fetch weather data. Please try again.");
+          }
+          return response.json();
+        })
+        .then((response) => {
+          console.log(response);
+          cloud_pct.innerHTML = response.cloud_pct;
+          cloud_pct2.innerHTML = response.cloud_pct;
+          temp.innerHTML = response.temp;
+          temp2.innerHTML = response.temp;
+          temp3.innerHTML = response.temp;
+          feels_like.innerHTML = response.feels_like;
+          humidity.innerHTML = response.humidity;
+          min_temp.innerHTML = response.min_temp;
+          max_temp.innerHTML = response.max_temp;
+          wind_speed.innerHTML = response.wind_speed;
+          wind_speed2.innerHTML = response.wind_speed;
+          wind_degrees.innerHTML = response.wind_degrees;
+          sunrise.innerHTML = formatTime(response.sunrise);
+          sunset.innerHTML = formatTime(response.sunset);
+    
+          // Update the theme based on the temperature
+          updateTheme(parseFloat(response.temp));
+          
+        })
+        .catch((err) => {
+          console.error(err);
+          alert("An error occurred while fetching weather data. Please try again.");
+        });
+    };
 
 function formatTime(timestamp) {
   const time = new Date(timestamp * 1000);
@@ -73,8 +92,8 @@ submit.addEventListener("click", (e) => {
   getWeather(searchCity);
 });
 
-// const defaultCity = "Delhi";
-// getWeather(defaultCity);
+ const defaultCity = "Delhi";
+ getWeather(defaultCity);
 
 const cities = ["Delhi", "Bangalore", "Pune", "Mumbai", "Jaipur", "Chennai"];
 getCitiesWeather(cities);
