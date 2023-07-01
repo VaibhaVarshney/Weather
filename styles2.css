@@ -1,0 +1,51 @@
+/* Add margin and padding to the navbar */
+.dark-mode {
+    background-color: #343a40; 
+    color: #fff;
+  }
+  /* Add margin and padding to the container */
+  .container {
+    margin-top: 20px;
+    padding: 10px;
+  }
+  
+  /* Add margin and padding to the form */
+  form {
+    margin-bottom: 20px;
+    padding: 10px;
+  }
+  
+  /* Add margin and padding to the input field and button */
+  .form-control {
+    margin-right: 10px;
+    padding: 5px;
+  }
+  
+  .btn {
+    padding: 5px 10px;
+  }
+  
+  /* Add margin and padding to the headings */
+  h1, h2 {
+    margin-bottom: 10px;
+    padding: 5px;
+  }
+  
+  /* Add margin and padding to the paragraphs */
+  p {
+    margin-bottom: 10px;
+    padding: 5px;
+  }
+  
+  /* Add margin and padding to the unordered list */
+  ul {
+    margin-bottom: 10px;
+    padding: 5px;
+  }
+  
+  /* Add margin and padding to the ordered list */
+  ol {
+    margin-bottom: 10px;
+    padding: 5px;
+  }
+  
